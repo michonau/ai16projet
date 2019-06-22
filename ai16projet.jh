@@ -1,0 +1,72 @@
+
+entity Sujets{
+    id Long,
+    titre String,
+    fkmoderateurcreateur Integer,
+    statut String,
+    datecreation Instant,
+    datefermetureauto Instant,
+
+}
+
+entity Propositions{
+    id Long,
+    fksujetpere Integer,
+    fkauteur Integer,
+    datecreation Instant,
+    votespour Integer,
+    contenu String,
+    archive Boolean,
+    messagejustificatif String
+}
+
+entity Avis{
+    fkpropositionmere Integer,
+    fkauteur Integer,
+    datecreation Instant,
+    commentaire String,
+    choix String,
+}
+
+entity Utilisateurs{
+    id Long,
+    mail String,
+    mdp String,
+    nom String,
+    prenom String,
+    sexe String,
+    age Integer,
+    telephone String,
+    statutactif Boolean,
+    estmoderateur Boolean,
+    fkvalidepar Integer,
+    dateouverturecompte Instant
+}
+
+
+relationship ManyToOne {
+	Propositions{sujet} to Sujets
+}
+
+relationship ManyToOne {
+	Avis{proposition} to Propositions
+}
+
+relationship ManyToOne {
+	Propositions{utilisateur} to Utilisateurs
+}
+
+relationship ManyToOne {
+	Avis{utilisateur} to Utilisateurs
+}
+
+relationship ManyToOne {
+	Sujets{utilisateur} to Utilisateurs
+}
+
+relationship ManyToOne {
+	Utilisateurs{validepar} to Utilisateurs
+}
+
+// Set pagination options
+paginate Sujets, Propositions, Avis with infinite-scroll
