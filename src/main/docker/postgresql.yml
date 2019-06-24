@@ -6,6 +6,6 @@ services:
     #     - ~/volumes/jhipster/ConsultationCitoyenne/postgresql/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=ConsultationCitoyenne
-      - POSTGRES_PASSWORD=
+      - POSTGRES_PASSWORD=admin
     ports:
       - 5432:5432

@@ -1,0 +1,71 @@
+<div>
+    <h2 id="page-heading">
+        <span>Avis</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-avis" [routerLink]="['/avis/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Avis
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="avis?.length === 0">
+        <span>No avis found</span>
+    </div>
+    <div class="table-responsive" *ngIf="avis?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Date Creation</span></th>
+            <th><span>Commentaire</span></th>
+            <th><span>Choix</span></th>
+            <th><span>User</span></th>
+            <th><span>Propositions</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let avis of avis ;trackBy: trackId">
+                <td><a [routerLink]="['/avis', avis.id, 'view' ]">{{avis.id}}</a></td>
+                <td>{{avis.dateCreation | date:'mediumDate'}}</td>
+                <td>{{avis.commentaire}}</td>
+                <td>{{avis.choix}}</td>
+                <td>
+                    {{avis.user?.login}}
+                </td>
+                <td>
+                    <div *ngIf="avis.propositions">
+                        <a [routerLink]="['../propositions', avis.propositions?.id, 'view' ]" >{{avis.propositions?.contenu}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/avis', avis.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/avis', avis.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'avis', { outlets: { popup: avis.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

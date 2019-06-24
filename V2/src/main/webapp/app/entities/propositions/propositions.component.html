@@ -1,0 +1,75 @@
+<div>
+    <h2 id="page-heading">
+        <span>Propositions</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-propositions" [routerLink]="['/propositions/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Propositions
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="propositions?.length === 0">
+        <span>No propositions found</span>
+    </div>
+    <div class="table-responsive" *ngIf="propositions?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Votes Pour</span></th>
+            <th><span>Date Creation</span></th>
+            <th><span>Contenu</span></th>
+            <th><span>Archive</span></th>
+            <th><span>Message Justificatif</span></th>
+            <th><span>User</span></th>
+            <th><span>Sujets</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let propositions of propositions ;trackBy: trackId">
+                <td><a [routerLink]="['/propositions', propositions.id, 'view' ]">{{propositions.id}}</a></td>
+                <td>{{propositions.votesPour}}</td>
+                <td>{{propositions.dateCreation | date:'mediumDate'}}</td>
+                <td>{{propositions.contenu}}</td>
+                <td>{{propositions.archive}}</td>
+                <td>{{propositions.messageJustificatif}}</td>
+                <td>
+                    {{propositions.user?.login}}
+                </td>
+                <td>
+                    <div *ngIf="propositions.sujets">
+                        <a [routerLink]="['../sujets', propositions.sujets?.id, 'view' ]" >{{propositions.sujets?.titre}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/propositions', propositions.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/propositions', propositions.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'propositions', { outlets: { popup: propositions.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

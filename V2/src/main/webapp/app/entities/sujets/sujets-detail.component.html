@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="sujets">
+            <h2><span>Sujets</span> {{sujets.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Titre</span></dt>
+                <dd>
+                    <span>{{sujets.titre}}</span>
+                </dd>
+                <dt><span>Statut</span></dt>
+                <dd>
+                    <span>{{sujets.statut}}</span>
+                </dd>
+                <dt><span>Date Creation</span></dt>
+                <dd>
+                    <span>{{sujets.dateCreation}}</span>
+                </dd>
+                <dt><span>Date Fermeture Auto</span></dt>
+                <dd>
+                    <span>{{sujets.dateFermetureAuto}}</span>
+                </dd>
+                <dt><span>User</span></dt>
+                <dd>
+                    {{sujets.user?.login}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/sujets', sujets.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

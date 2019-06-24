@@ -1,0 +1,95 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-propositions-heading">Create or edit a Propositions</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_votesPour">Votes Pour</label>
+                    <input type="number" class="form-control" name="votesPour" id="field_votesPour"
+                           formControlName="votesPour"/>
+                    <div *ngIf="editForm.get('votesPour').invalid && (editForm.get('votesPour').dirty || editForm.get('votesPour').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('votesPour').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('votesPour')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dateCreation">Date Creation</label>
+                    <div class="input-group">
+                        <input id="field_dateCreation" type="text" class="form-control" name="dateCreation" ngbDatepicker  #dateCreationDp="ngbDatepicker" formControlName="dateCreation"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateCreationDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div *ngIf="editForm.get('dateCreation').invalid && (editForm.get('dateCreation').dirty || editForm.get('dateCreation').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('dateCreation').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_contenu">Contenu</label>
+                    <input type="text" class="form-control" name="contenu" id="field_contenu"
+                           formControlName="contenu"/>
+                    <div *ngIf="editForm.get('contenu').invalid && (editForm.get('contenu').dirty || editForm.get('contenu').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('contenu').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_archive">Archive</label>
+                    <input type="checkbox" class="form-control" name="archive" id="field_archive"
+                           formControlName="archive"/>
+                    <div *ngIf="editForm.get('archive').invalid && (editForm.get('archive').dirty || editForm.get('archive').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('archive').errors.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_messageJustificatif">Message Justificatif</label>
+                    <input type="text" class="form-control" name="messageJustificatif" id="field_messageJustificatif"
+                           formControlName="messageJustificatif"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === editForm.get('user').value?.id ? editForm.get('user').value : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sujets">Sujets</label>
+                    <select class="form-control" id="field_sujets" name="sujets" formControlName="sujets">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="sujetsOption.id === editForm.get('sujets').value?.id ? editForm.get('sujets').value : sujetsOption" *ngFor="let sujetsOption of sujets; trackBy: trackSujetsById">{{sujetsOption.titre}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

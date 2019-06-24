@@ -1,0 +1,49 @@
+{
+    "name": "Avis",
+    "fields": [
+        {
+            "fieldName": "dateCreation",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "commentaire",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "choix",
+            "fieldType": "Choix",
+            "fieldValues": "Pour,Mais,Neutre,Contre",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "avis",
+            "relationshipName": "user",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "propositions",
+            "otherEntityRelationshipName": "avis",
+            "relationshipName": "propositions",
+            "otherEntityField": "contenu"
+        }
+    ],
+    "changelogDate": "20190624000210",
+    "entityTableName": "avis",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
